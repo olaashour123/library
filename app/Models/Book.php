@@ -8,7 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    public $timestamps  = false ;
+
+     protected $fillable = [
+        'name',
+        'image',
+        'description',
+        'price',
+        'quantity',
+        'publisher_id'
+        // 'book_category',
+        // 'author_book',
+        // 'book_customer',
+    ];
+
 
     public function categories()
     {

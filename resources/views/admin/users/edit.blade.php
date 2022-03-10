@@ -1,4 +1,57 @@
-<html lang="en">
+@extends("admin.layouts.master")
+
+@section('title')
+    Add new Users
+@endsection
+
+@section('content')
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Quick Example</h3>
+        </div>
+
+
+        <form action="{{ route('admin.users.update', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
+
+            @csrf
+            @method('post')
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                </div>
+                <div class="form-group">
+                    <label for="name">UserName</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="mail">E-mail:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="msg">Status:</label>
+                    <select id="status" name="status">
+                        <option value="1" {{ $user->status == '1' ? 'selected' : '' }}>Enabled</option>
+                        <option value="0" {{ $user->status == '0' ? 'selected' : '' }}>Disabled</option>
+                    </select>
+                </div>
+
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+        </form>
+    </div>
+@endsection
+
+
+
+{{-- <html lang="en">
 <head>
     <title>Edit User</title>
     <style>
@@ -98,4 +151,4 @@
     {{ csrf_field() }}
 </form>
 </body>
-</html>
+</html> --}}

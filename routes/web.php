@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Admin\Users\ChangePasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,23 +42,25 @@ Route::name('admin.')->prefix('admin')->group(function () {
 Route::name('admin.')->prefix('admin')->middleware(['auth:admin', 'throttle:100,1'])->group(function () {
          //    Route::group([  'name'=>'admin.','prefix' => 'admin', 'middleware' => ['auth:admin', 'throttle:100,1']], function ()
         //  {
-        //      Route::get('dashboard',DashboardController::class)->name('dashboard.index');
+        //   Route::get('dashboard',DashboardController::class)->name('dashboard.index');
         //    Route::view('/','admin.layouts.master')->name('admin.layouts.master');
+         Route::get('users/password/{id}',[ChangePasswordController::class,'edit'])->name('users.password');
+         Route::put('users/updatePassword/{id}',[ChangePasswordController::class,'update'])->name('users.updatePassword');
+         Route::get('users',[UserController::class, 'index'])->name('users.index');
+         Route::get('users/create',[UserController::class, 'create'])->name('users.create');
+         Route::post('users/store',[UserController::class, 'store'])->name('users.store');
+         Route::get('users/edit/{id}',[UserController::class, 'edit'])->name('users.edit');
+         Route::post('users/update/{id}',[UserController::class, 'update'])->name('users.update');
+         Route::get('users/destroy/{id}',[UserController::class, 'destroy'])->name('users.destroy');
 
-         Route::get('users', [UserController::class, 'index'])->name('users.index');
-         Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-         Route::post('users/store', [UserController::class, 'store'])->name('users.store');
-         Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
-         Route::post('users/update/{id}', [UserController::class, 'update'])->name('users.update');
-         Route::get('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
-         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-         Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
-         Route::post('categories/store', [CategoryController::class, 'store'])->name('categories.store');
-         Route::get('categories/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
-         Route::put('categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
-         Route::get('categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+         Route::get('categories',[CategoryController::class, 'index'])->name('categories.index');
+         Route::get('categories/create',[CategoryController::class, 'create'])->name('categories.create');
+         Route::post('categories/store',[CategoryController::class, 'store'])->name('categories.store');
+         Route::get('categories/edit/{id}',[CategoryController::class, 'edit'])->name('categories.edit');
+         Route::put('categories/update/{id}',[CategoryController::class, 'update'])->name('categories.update');
+         Route::get('categories/destroy/{id}',[CategoryController::class, 'destroy'])->name('categories.destroy');
 
 
          Route::get('publishers', [PublisherController::class, 'index'])->name('publishers.index');
@@ -70,16 +74,24 @@ Route::name('admin.')->prefix('admin')->middleware(['auth:admin', 'throttle:100,
          Route::get('publishers/deleteAuthors/{author}/{id}', [PublisherController::class, 'delete'])->name('publishers.deleteAuthors');
 
 
-         Route::get('authors', [AuthorController::class,'index'])->name('authors.index');
-         Route::get('authors/create', [AuthorController::class, 'create'])->name('authors.create');
-         Route::post('authors/store', [AuthorController::class, 'store'])->name('authors.store');
-         Route::get('authors/edit/{id}', [AuthorController::class, 'edit'])->name('authors.edit');
-         Route::put('authors/update/{id}', [AuthorController::class, 'update'])->name('authors.update');
-         Route::get('authors/destroy/{id}', [AuthorController::class, 'destroy'])->name('authors.destroy');
-         Route::get('authors/my_publisher/{id}', [AuthorController::class, 'show'])->name('authors.show');
+         Route::get('authors',[AuthorController::class,'index'])->name('authors.index');
+         Route::get('authors/create',[AuthorController::class, 'create'])->name('authors.create');
+         Route::post('authors/store',[AuthorController::class, 'store'])->name('authors.store');
+         Route::get('authors/edit/{id}',[AuthorController::class, 'edit'])->name('authors.edit');
+         Route::put('authors/update/{id}',[AuthorController::class, 'update'])->name('authors.update');
+         Route::get('authors/destroy/{id}',[AuthorController::class, 'destroy'])->name('authors.destroy');
+         Route::get('authors/my_publisher/{id}',[AuthorController::class, 'show'])->name('authors.show');
          Route::post('authors/addPublishers', [AuthorController::class, 'addPublishers'])->name('authors.addPublishers');
          Route::get('authors/deletePublishers/{author}/{id}', [AuthorController::class, 'delete'])->name('authors.deletePublishers');
 
+
+         Route::get('books',[BookController::class, 'index'])->name('books.index');
+         Route::get('books/create',[BookController::class, 'create'])->name('books.create');
+         Route::post('books/store',[BookController::class, 'store'])->name('books.store');
+         Route::get('books/edit/{id}',[BookController::class, 'edit'])->name('books.edit');
+         Route::put('books/update/{id}',[BookController::class, 'update'])->name('books.update');
+         Route::get('books/destroy/{id}',[BookController::class, 'destroy'])->name('books.destroy');
+           //  Route::get('books/my_publisher/{id}',[AuthorController::class, 'show'])->name('authors.show');
 
 });
 

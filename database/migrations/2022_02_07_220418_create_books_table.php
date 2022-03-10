@@ -21,9 +21,9 @@ class CreateBooksTable extends Migration
             $table->float('price');
             $table->integer('quantity');
             $table->unsignedBigInteger('publisher_id');
-
-
+            // $table->foreign('publisher_id')->references('id')->on('publishers')->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 

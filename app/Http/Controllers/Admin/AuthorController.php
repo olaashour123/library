@@ -72,7 +72,7 @@ class AuthorController extends Controller
 
 
         $add = $authorRepo->store($data);
-         
+
         $add->publishers()->sync($data['publishers']);
 
         if (!$add) {
@@ -133,7 +133,7 @@ class AuthorController extends Controller
     public function update(AuthorRequest $request, AuthorsRepository  $authorRepo , $id)
     {
          $data = $request->validated();
-         
+
          $author = $authorRepo->getAuthor($id);
         $author->publishers()->sync($data['publishers']);
 
@@ -146,13 +146,13 @@ class AuthorController extends Controller
             // dd($imageName);
             $data['image'] = 'public/categories/' . $imageName;
             Storage::disk('public')->delete($author->image);
-        }else{
+            }else {
             $data['image'] = $author->image;
         }
 
 
         $update = $authorRepo->update($id,$data);
-        
+
         if (!$update) {
             $request->session()->flash('data', [
                 'title' => 'Error',
@@ -183,7 +183,7 @@ class AuthorController extends Controller
         $authorRepo->getAuthor($id);
         $author = $authorRepo->destroy($id);
 
-        return redirect()->route('admin.authors.index');
+        return redirect()->route('admin.authors.index' ,['author' =>  $author]);
 
 
     }

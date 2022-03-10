@@ -49,12 +49,17 @@
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
 
+                            <a href="{{ route('admin.users.password', ['id' => $user->id]) }}"
+                                class="btn btn-xs btn-primary">
+                                Change Password
+                            </a>
+
                             <form class="inline" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}"
                                 method="put">
                                 @csrf
                                 @method('post')
                                 <button onclick="return
-                                     confirm('هل انت متأكد من الاستمرار في العملية؟')"
+                                         confirm('هل انت متأكد من الاستمرار في العملية؟')"
                                     class="btn Confirm btn-xs btn-danger">
                                     <i class="glyphicon glyphicon-trash"></i></button>
                             </form>

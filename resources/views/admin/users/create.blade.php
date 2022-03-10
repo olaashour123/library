@@ -1,7 +1,7 @@
 @extends("admin.layouts.master")
 
 @section('title')
-    Add new Authors of BooK
+    Add new Users
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
         </div>
 
 
-        <form action="{{ route('admin.authors.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
 
             @csrf
             @method('post')
@@ -20,10 +20,9 @@
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
                 </div>
-
                 <div class="form-group">
-                    <label for="mail">E-mail:</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                    <label for="name">UserName</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter UserName">
                 </div>
 
 
@@ -33,63 +32,36 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="address">address:</label>
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter address">
+                    <label for="password">PasswordConformation:</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                        placeholder="Enter password">
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="align col-sm-2 control-label"> My Publisher</label>
-                    <div class="col-sm-5">
-                        <select name="publishers[]" id="publishers" class="form-control" multiple>
-                            <option value=""> My Publisher</option>
-                            @foreach ($publishers as $publisher)
-                                <option value="{{ $publisher->id }}">
-                                    {{ $publisher->name }} </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    {{-- <input type="text" value="{{ $author->id }}" name="author" hidden>
-                        <div class="form-group">
-                            <label>Add publishers</label>
-                            <select class="custom-select" name="publishers[]" multiple>
-                                @foreach ($allPublishers as $publisher)
-                                    <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
+                    <label for="mail">E-mail:</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
                 </div>
-
-                <div class="form-group">
-                    <label for="discription">Discription</label>
-                    <input type="text" class="form-control" id="discription" name="discription" placeholder="Password">
-                </div>
-
 
 
                 <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="image" id="exampleInputFile">
-                            <label class="custom-file-label" for="image">Choose image</label>
-                        </div>
-                        <div class="input-group-append">
-                            <span class="input-group-text">Upload</span>
-                        </div>
-                    </div>
+                    <label for="msg">Status:</label>
+                    <select id="status" name="status">
+                        <option value="1">Enabled</option>
+                        <option value="0">Disabled</option>
+                    </select>
                 </div>
-            </div>
 
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
         </form>
     </div>
 @endsection
 
-/////////////////
+{{-- ///////////////// --}}
 
-<html lang="en">
+{{-- <html lang="en">
 
 <head>
     <title>Create User</title>
@@ -202,4 +174,4 @@
     </form>
 </body>
 
-</html>
+</html> --}}

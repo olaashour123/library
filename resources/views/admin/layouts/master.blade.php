@@ -20,6 +20,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('admin/dist/css/style.css') }}"> --}}
+
+    <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     @yield('css')
 
     <style>
@@ -129,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
                 <!-- Bootstrap 4 -->
                 <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
+                <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
                 {{-- <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.style.js') }}"></script> --}}
                 <!-- AdminLTE App -->
                 <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
@@ -178,8 +183,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     })
                 </script>
 
+                <script>
+                    $(function() {
 
+                        $('.select2').select2()
 
+                    })
+                </script>
 
 </body>
 

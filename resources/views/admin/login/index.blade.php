@@ -177,7 +177,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                       <input type="password" class="form-control" placeholder="Password"name="password">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -195,11 +195,17 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" >Sign In</button>
+                            <button type="submit">Sign In</button>
+                            {{-- <button type="button" href="">Change Password</button> --}}
+                            <a href="{{ route('admin.users.password', ['id' => $user->id]) }}"
+                                class="btn btn-xs btn-primary">
+                                Change Password
+                            </a>
+
                         </div>
                         <!-- /.col -->
                     </div>
-                      {{ csrf_field() }}
+                    {{ csrf_field() }}
                 </form>
 
 

@@ -47,6 +47,7 @@ class PublisherRequest extends FormRequest
             'address' => [
                 'required',
             ],
+            
                 'image' => [
                         'required',
                         'image',

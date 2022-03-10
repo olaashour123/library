@@ -16,6 +16,13 @@ class LoginController extends Controller
         return view('admin.login.index');
         }
 
+        //  public function index(UserRepository $userRepo,
+        //                  $id) {
+        //    $user = $userRepo->getUser($id);
+        // return view('admin.login.index', ['user'=> $user]);
+        // }
+
+
 
     public function update(LoginRequest $request)
      {

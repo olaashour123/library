@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label for="name" class="align col-sm-2 control-label"> My Publisher</label>
                 <div class="col-sm-5">
-                    <select name="publishers[]" id="publishers" class="form-control" multiple>
+                    <select name="publishers[]" id="publishers" class="form-control" multiple="">
                         <option value=""> My Publisher</option>
                         @foreach ($publishers as $publisher)
                             <option value="{{ $publisher->id }}"
@@ -44,6 +44,8 @@
                         @endforeach
                     </select>
                 </div>
+
+                
 
 
                 <div class="form-group">
