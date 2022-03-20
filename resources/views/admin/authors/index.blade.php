@@ -65,11 +65,7 @@
 
                                 {{-- <a title="" href="/admin/orders/my_orders/{{ $o->id }}" class="btn PopUp btn-info btn-xs">
 
-                    <i class="glyphicon glyphicon-list"></i>      class="btn btn-xs btn-primary" --}}
-
-
-                                <br>
-
+                             <i class="glyphicon glyphicon-list"></i>    class="btn btn-xs btn-primary" --}}
 
                                 <a href="{{ route('admin.authors.edit', ['id' => $author->id]) }}"
                                     class="btn btn-xs btn-primary">

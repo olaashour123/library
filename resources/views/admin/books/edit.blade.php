@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="price">Price</label>
                 <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" id="price"
-                    value="{{ old('price') }}" value="{{ $book->image }}">
+                    value="{{ $book->price }}">
                 @if ($errors->has('price'))
                     <p class="text-danger">{{ implode(', ', $errors->get('price')) }}</p>
                 @endif
@@ -72,7 +72,7 @@
                 <div class="form-group">
                     <label for="name" class="align col-sm-2 control-label"> My Publisher</label>
                     <div class="col-sm-5">
-                        <select name="publishers" id="publishers" class="form-control" multiple="">
+                        <select name="publisher_id" id="publisher_id" class="form-control" multiple="">
                             <option value=""> My Publisher</option>
                             @foreach ($publishers as $publisher)
                                 <option value="{{ $publisher->id }}"

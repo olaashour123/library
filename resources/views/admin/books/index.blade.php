@@ -48,9 +48,7 @@
                                     src="{{ url(Storage::url($book->image)) }}" alt="">
                             </td>
                             <td>
-                                @foreach ($book->publisher() as $publisher)
-                                    {{ $publisher->name }}
-                                @endforeach
+                                {{ $book->publisher->name ?? 'N/A' }}
                             </td>
 
                             <td>

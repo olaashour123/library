@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Admin\BookController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Users\ChangePasswordController;
@@ -29,9 +31,12 @@ use App\Http\Controllers\Admin\Users\ChangePasswordController;
 
  //Route::get('/login',[LoginController::class,'index'])->name('index');
 
+//  Route::view('/','front.home')->name('front.home');
+// //  Route::view('/books','front.books')->name('front.books');
+//  Route::get('/books', [HomeController::class, 'index'])->name('front.books');
 
 
-Route::name('admin.')->prefix('admin')->group(function () {
+Route::name('admin.')->prefix('admin')->middleware('guest:admin')->group(function () {
 
         Route::get('login', [LoginController::class, 'index'])->name('login.index');
         Route::post('login', [LoginController::class, 'update'])->name('login.update');
@@ -46,7 +51,7 @@ Route::name('admin.')->prefix('admin')->middleware(['auth:admin', 'throttle:100,
         //    Route::view('/','admin.layouts.master')->name('admin.layouts.master');
          Route::get('users/password/{id}',[ChangePasswordController::class,'edit'])->name('users.password');
          Route::put('users/updatePassword/{id}',[ChangePasswordController::class,'update'])->name('users.updatePassword');
-         Route::get('users',[UserController::class, 'index'])->name('users.index');
+         Route::get('users',[UserController::class, 'index'])->name('users.index')->middleware('admin');
          Route::get('users/create',[UserController::class, 'create'])->name('users.create');
          Route::post('users/store',[UserController::class, 'store'])->name('users.store');
          Route::get('users/edit/{id}',[UserController::class, 'edit'])->name('users.edit');
@@ -93,5 +98,12 @@ Route::name('admin.')->prefix('admin')->middleware(['auth:admin', 'throttle:100,
          Route::get('books/destroy/{id}',[BookController::class, 'destroy'])->name('books.destroy');
            //  Route::get('books/my_publisher/{id}',[AuthorController::class, 'show'])->name('authors.show');
 
+
+
+         Route::get('customers',[CustomerController::class, 'index'])->name('customers.index');
+         Route::post('customers/store',[CustomerController::class, 'store'])->name('customers.store');
+         Route::get('customers/edit/{id}',[CustomerController::class, 'edit'])->name('customers.edit');
+         Route::put('customers/update/{id}',[CustomerController::class, 'update'])->name('customers.update');
+         Route::get('customers/destroy/{id}',[CustomerController::class, 'destroy'])->name('customers.destroy');
 });
 

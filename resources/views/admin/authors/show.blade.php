@@ -42,7 +42,7 @@
                                             <td>
                                                 <a href="{{ route('admin.authors.deletePublishers', [$author->id, $publisher->id]) }}"
                                                     class="btn Confirm btn-xs btn-danger">
-                                                    <i class="fas fa-solid fa-trash"></i>
+                                                    <i class="fas fa-solid fa-trash" ></i>
                                                 </a>
                                                 {{-- <form class="inline"
                                                     action="{{ route('admin.authors.deletePublishers', [$author->id, $publisher->id]) }}"

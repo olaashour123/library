@@ -18,6 +18,8 @@ class CreateCartTable extends Migration
             $table->integer('quantity');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('book_id');
+            
+        
             $table->timestamps();
         });
     }

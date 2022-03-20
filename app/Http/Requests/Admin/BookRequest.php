@@ -64,16 +64,18 @@ class  BookRequest extends FormRequest
                         'max:255'
                ],
 
-        'publishers' => [
-                'required',
-                // 'array'
-            ],
+        // 'publishers' => [
+        //         'required',
+        //         // 'array'
+        //     ],
 
-        'publishers.*' => [
-                'numeric'
-            ],
+        // 'publishers.*' => [
+        //         'numeric'
+        //     ],
+
             'publisher_id' => [
-                'nullable',
+               'required',
+                'numeric',
             ],
 
             'categories' => [

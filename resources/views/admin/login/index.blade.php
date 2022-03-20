@@ -196,11 +196,11 @@
                         <!-- /.col -->
                         <div class="col-4">
                             <button type="submit">Sign In</button>
-                            {{-- <button type="button" href="">Change Password</button> --}}
-                            <a href="{{ route('admin.users.password', ['id' => $user->id]) }}"
+                            <button type="button" href="">Change Password</button>
+                            {{-- <a href="{{ route('admin.users.password', ['id' => $user->id]) }}"
                                 class="btn btn-xs btn-primary">
                                 Change Password
-                            </a>
+                            </a> --}}
 
                         </div>
                         <!-- /.col -->

@@ -62,9 +62,9 @@ class BookController extends Controller
 
            $data['image'] = 'Books/' . $imageName;
 
+    //    $data['publisher_id'] = $data['publishers'];
+        $publishers = $publisherRepo->getPublisher($data['publisher_id']) ;
 
-            $publishers = $publisherRepo->getPublisher($data['publishers']) ;
-            $data['publisher_id'] = $data['publishers'];
            $add = $bookRepo->store($data);
            $add->publisher()->associate($publishers);
            $add->categories()->sync($data['categories']);
@@ -134,7 +134,7 @@ class BookController extends Controller
 
 
 
-         $publishers = $publisherRepo->getPublisher($data['publishers']) ;
+         $publishers = $publisherRepo->getPublisher($data['publisher_id']) ;
 
         $book = $bookRepo->getBook($id);
 
@@ -145,8 +145,8 @@ class BookController extends Controller
 
             $image = $data['image'];
             $imageName = Carbon::now()->format('Y_m_d_h_i')  .  '.' . $image->getClientOriginalExtension();
-            $image->storeAs('/Books', $imageName, ['disk ' =>'public']);
-            $data['image'] = 'Books/' . $imageName;
+            $image->storeAs('public/Books', $imageName, ['disk ' =>'public']);
+            $data['image'] = 'public/Books/' . $imageName;
             Storage::disk('public')->delete($book->image);
         }else{
             $data['image'] = $book->image;
@@ -155,7 +155,7 @@ class BookController extends Controller
 
 
 
-        $data['publisher_id'] = $data['publishers'];
+      //  $data['publisher_id'] = $data['publishers'];
     $update = $bookRepo->update($id,$data);
 
 

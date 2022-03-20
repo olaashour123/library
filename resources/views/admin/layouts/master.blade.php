@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
-                @include('_msg')
+                @include('includes._msg')
                 @if (Session::has('success'))
                     <div class="alert alert-success">
                         {{ Session::get('success') }}

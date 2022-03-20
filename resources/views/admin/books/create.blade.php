@@ -88,7 +88,7 @@
                     <div class="form-group">
                         <label for="name" class="align col-sm-2 control-label">Publisher</label>
                         <div class="col-sm-5">
-                            <select name="publishers" id="publishers" class="form-control">
+                            <select name="publisher_id" id="publisher_id" class="form-control">
                                 <option value=""> My Publisher</option>
                                 @foreach ($publishers as $publisher)
                                     <option value="{{ $publisher->id }}">

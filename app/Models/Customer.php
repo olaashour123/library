@@ -4,21 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
     use HasFactory;
- public $timestamps  = false ;
+
+      protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'address',
+        'image',
+    ];
+
+//  public $timestamps  = false ;
  public function cart()
     {
         return $this->hasMany(Cart::class );
-
     }
 
 
      public function books()
     {
-        return $this->belongToMany(Book::class );
-
+        return $this->belongsToMany(Book::class );
     }
 }
