@@ -29,4 +29,9 @@ class Customer extends Authenticatable
     {
         return $this->belongsToMany(Book::class );
     }
+
+     public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

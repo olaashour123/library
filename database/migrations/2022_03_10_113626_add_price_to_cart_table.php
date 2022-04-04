@@ -15,10 +15,10 @@ class AddPriceToCartTable extends Migration
     {
         Schema::table('cart', function (Blueprint $table) {
             //
-                 if(!Schema::hasColumn('cart', 'price')) {
+                 if(!Schema::hasColumn('cart', 'price')){
                 $table->float('price')->after('book_id');
             }
-                
+
         });
     }
 

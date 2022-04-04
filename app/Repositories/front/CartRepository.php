@@ -1,22 +1,25 @@
 <?php
-namespace App\Repositories\Admin;
+
+namespace App\Repositories\front;
 
 use App\Models\Cart;
 
-class CartsRepository
-{
-    public function getCart($id)
+class CartRepository{
+    public function getCartItem($id)
     {
         return Cart::query()->findOrFail($id);
     }
 
-    public function getCarts($perPage)
-
+    public function getCartByCustomerId($customerId)
     {
+        return Cart::query()
+        ->with(['book'])
+        ->where('customer_id', $customerId)
+        ->get();
+    }
 
-        
+    public function getCartItems($perPage){
         return Cart::query()->paginate($perPage);
-
     }
 
     public function destroy($id)
@@ -25,15 +28,12 @@ class CartsRepository
     }
 
     public function store(array $data)
-    
     {
         return Cart::query()->create($data);
     }
-
 
     public function update($id, array $data)
     {
         return Cart::query()->findOrFail($id)->update($data);
     }
 }
-

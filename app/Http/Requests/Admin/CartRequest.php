@@ -24,15 +24,16 @@ class CartRequest extends FormRequest
      */
     public function rules()
     {
-    
+
         $rules = [
-    
-    //    'quantity'=> [
-    //                 'required',
-                    
+
+       'quantity'=> [
+                    'required',
 
 
-    //         ],
+
+
+            ],
 
 
         'book_id' => [
@@ -40,13 +41,13 @@ class CartRequest extends FormRequest
                 'numeric',
 
             ],
-        
-        
-            
+
+
+
         ];
 
            return $rules;
     }
-    
+
 
 }

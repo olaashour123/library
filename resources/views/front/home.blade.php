@@ -158,10 +158,14 @@
                                         <div class="product-card__badges-list">
                                             <div class="product-card__badge product-card__badge--new">New</div>
                                         </div>
-                                        <div class="product-card__image"><a href="product.html"><img
-                                                    src="{{ url(Storage::url($book->image)) }}" alt=""></a></div>
+                                        <div class="product-card__image">
+                                            <a href="{{ route('book_detail', $book->id) }}">
+                                                <img src="{{ url(Storage::url($book->image)) }}" alt="">
+                                            </a>
+                                        </div>
                                         <div class="product-card__info">
-                                            <div class="product-card__name"><a href="product.html">{{ $book->name }}</a>
+                                            <div class="product-card__name"><a
+                                                    href="{{ route('book_detail', $book->id) }}">{{ $book->name }}</a>
                                             </div>
                                             <div class="product-card__rating">
                                                 <div class="rating">
@@ -277,14 +281,12 @@
                                             <div class="product-card__prices">${{ $book->price }}</div>
                                             <div class="product-card__buttons">
 
-                                                <form class="inline" action="{{ route('cart.store') }}"
-                                                    method="post">
+                                                <form action="{{ route('cart.store') }}" method="post">
                                                     @csrf
-                                                    @method('POST')
-
-                                                    <input type="text" value="{{{ $bo }}ok->id}}" hidden>
-                                                    <button class="btn btn-primary product-card__addtocart"
-                                                        type="submit">Here</button>
+                                                    <input type="hidden" name="book->id" value="{{ $book->id }}">
+                                                    {{-- <input type="text" value="{{ $book->quantity }}" hidden> --}}
+                                                    <button class="btn btn-primary product-card__addtocart" type="submit"
+                                                        class="btn btn-link">Here</button>
                                                     {{-- <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button> --}}
 
                                                 </form>

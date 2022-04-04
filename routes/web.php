@@ -40,7 +40,7 @@ Route::name('admin.')->prefix('admin')->middleware('guest:admin')->group(functio
 
         Route::get('login', [LoginController::class, 'index'])->name('login.index');
         Route::post('login', [LoginController::class, 'update'])->name('login.update');
-
+        Route::get('logout/user', [LoginController::class, 'logout'])->name('logout.user');
         });
 
 
@@ -105,5 +105,8 @@ Route::name('admin.')->prefix('admin')->middleware(['auth:admin', 'throttle:100,
          Route::get('customers/edit/{id}',[CustomerController::class, 'edit'])->name('customers.edit');
          Route::put('customers/update/{id}',[CustomerController::class, 'update'])->name('customers.update');
          Route::get('customers/destroy/{id}',[CustomerController::class, 'destroy'])->name('customers.destroy');
+
+
+         Route::resource('slides', [SliderController::class]);
 });
 

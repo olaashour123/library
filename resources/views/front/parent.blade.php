@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('front/vendor/bootstrap-4.2.1/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front/vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+    @yield('css')
 
 </head>
 
@@ -1454,8 +1455,8 @@
                                                     </table>
                                                 </div>
                                                 <div class="dropcart__buttons"><a class="btn btn-secondary"
-                                                        href="cart.html">View Cart</a> <a class="btn btn-primary"
-                                                        href="checkout.html">Checkout</a></div>
+                                                        href="{{ route('front.cart') }}">View Cart</a> <a
+                                                        class="btn btn-primary" href="checkout.html">Checkout</a></div>
                                             </div>
                                             <!-- .dropcart / end -->
                                         </div>
@@ -1467,6 +1468,8 @@
                 </div>
             </div>
         </header>
+
+        {{-- @include('includes._msg') --}}
 
 
         @yield('content')
@@ -1622,6 +1625,7 @@
         </footer>
         <!-- site__footer / end -->
     </div>
+    @yield('scripts')
 </body>
 
 </html>

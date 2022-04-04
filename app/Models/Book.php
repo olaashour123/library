@@ -16,9 +16,7 @@ class Book extends Model
         'price',
         'quantity',
         'publisher_id'
-        // 'book_category',
-        // 'author_book',
-        // 'book_customer',
+     
     ];
 
 
@@ -47,5 +45,6 @@ class Book extends Model
     {
         return $this->hasMany(Cart::class );
     }
+
 }
 
