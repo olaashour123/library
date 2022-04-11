@@ -31,8 +31,6 @@ class CartRequest extends FormRequest
                     'required',
 
 
-
-
             ],
 
 

@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\CartRequest;
+use App\Repositories\front\BooksRepository;
 use App\Repositories\front\CartRepository;
-use App\Repositories\front\CategoriesRepository;
+
 
 class CartController extends Controller
 {
@@ -65,10 +66,8 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CartRequest $request, CartRepository  $cartRepo  )
+    public function store(CartRequest $request, CartRepository  $cartRepo, BooksRepository  $bookRepo  )
     {
-
-
         $data = $request->validated();
 
         $customerId = Auth::guard('customer')->id();
@@ -78,34 +77,18 @@ class CartController extends Controller
             'book_id' => $data['book_id']
         ])->first();
 
-          if($cart){
-
-         $model = $cartRepo->update($cart->id,['quantity'=>$cart->quantity+$data['quantity']]);
-
-        }else{
-
-             $model = $cartRepo->store($data);
+        //  dd($book);
+        if ($cart) {
+            $book =$cart->book;
+            if (($data['quantity'] + $cart->quantity) <= $book->quantity) {
+                $model = $cartRepo->update($cart->id, ['quantity'=>$cart->quantity+$data['quantity']]);
+            }
+        } else {
+            $book = $bookRepo->getBook($data['book_id']);
+            if ($data['quantity'] <= $book->quantity) {
+                $model = $cartRepo->store($data);
+            }
         }
-
-     if ($cart->count()>0) {
-
-
-      //  $customerId = Auth::guard('customer')->id();
-         // $data += ['customer_id' => $customerId];
-        // $cart = Cart::where([
-        //     'customer_id' => $customerId,
-        //     'book_id' => $data['book_id']
-        // ])->first();
-        // if($cart){
-
-        //  $model = $cartRepo->update($cart->id,['quantity'=>$cart->quantity+$data['quantity']]);
-
-        // }else{
-
-        //      $model = $cartRepo->store($data);
-        // }
-
-
 
         if (! $model) {
             $request->session()->flash('data', [
@@ -119,16 +102,12 @@ class CartController extends Controller
             'title' => 'success',
             'code' => 200,
             'message' => 'Added Successfully',
-        ]);
+          ]);
         return redirect()->route('front.cart');
 
 
-         }else{
-        return Redirect()->back->withErrors(['message'=>'there is not item ']);
-
-
   }
-    }
+
 
 
 //          $data=$request->validated();

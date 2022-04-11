@@ -11,19 +11,14 @@ class AddChangeToOrderAddressesTable extends Migration
      *
      * @return void
      */
-    public function up()
+
+ public function up()
     {
         Schema::table('order_addresses', function (Blueprint $table) {
-            //      $table->renameColumn('country','country_id');
-            //   $table->foreignId('country_id')->constrained('countries')->change();
-                 if (!Schema::hasColumn('order_addresses', 'country')) {
-                     $table->dropColumn('country', 2);
-                 }
-               if(!Schema::hasColumn('order_addresses', 'country_id')) {
-                $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete()->after('phone');
-            }
 
-            //
+
+             $table->unsignedBigInteger('country_id')->nullable()->after('phone');
+
         });
     }
 
@@ -39,3 +34,10 @@ class AddChangeToOrderAddressesTable extends Migration
         });
     }
 }
+
+
+
+
+
+
+

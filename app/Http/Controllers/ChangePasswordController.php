@@ -18,8 +18,8 @@ class ChangePasswordController extends Controller
 
         $customerId=Auth::guard('customer')->id();
         $newPassword = Hash::make($data['New_Password']);
-         $customerRepo->update($customerId, ['password' => $newPassword]);
-               return redirect()->back();
+        $customerRepo->update($customerId, ['password' => $newPassword]);
+           return redirect()->back();
 
         }
 

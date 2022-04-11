@@ -4,7 +4,7 @@
     <!-- desktop site__header / end -->
     <!-- site__body -->
 
-      @if ($errors->any())
+    @if ($errors->any())
         @foreach ($errors->all() as $error)
             <p>{{ $error }}</p>
         @endforeach
@@ -69,6 +69,16 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="country">Country</label>
+                                        <select class="custom-select" id="country" name="country_id">
+                                            <option value="">select</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     {{-- <div class="form-group"><label for="checkout-company-name">Company Name <span
                                                 class="text-muted">(Optional)</span></label> <input type="text"
                                             class="form-control" id="checkout-company-name" placeholder="Company Name">
@@ -90,6 +100,7 @@
                                         </select>
                                     </div> --}}
 
+
                                     {{-- <div class="form-group form-group--inline">
                                         <label>Country<span>*</span>
                                         </label>
@@ -101,7 +112,7 @@
                                             @endforeach
                                         </select>
                                     </div> --}}
-                                    <div class=" form-group">
+                                    {{-- <div class=" form-group">
                                         <label for="checkout-country">Country</label>
                                         <input type="text" class="form-control" id="checkout-street-address"
                                             placeholder="Street Address" name="country" value="{{ old('country') }}">
@@ -114,8 +125,8 @@
                                             <option>Ukraine</option>
                                             <option>Germany</option>
                                             <option>Australia</option>
-                                        </select> --}}
-                                    </div>
+                                        </select>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label for="checkout-street-address">Street Address</label>
                                         <input type="text" class="form-control" id="checkout-street-address"

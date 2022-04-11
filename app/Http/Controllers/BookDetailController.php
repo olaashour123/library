@@ -10,9 +10,6 @@ use App\Repositories\front\CategoriesRepository;
 class BookDetailController extends Controller
 {
     //
-
-
-
       public function index(BooksRepository  $bookRepo , CategoriesRepository $categoryRepo, CartRepository  $cartRepo  ,$id)
     {
 

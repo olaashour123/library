@@ -229,7 +229,7 @@
                                             class="mobile-links__item-link">Checkout</a></div>
                                 </li>
                                 <li class="mobile-links__item" data-collapse-item>
-                                    <div class="mobile-links__item-title"><a href="wishlist.html"
+                                    <div class="mobile-links__item-title"><a href="#"
                                             class="mobile-links__item-link">Wishlist</a></div>
                                 </li>
                                 <li class="mobile-links__item" data-collapse-item>
@@ -469,7 +469,7 @@
                                     </button>
                                 </div>
                                 <div class="indicator indicator--mobile d-sm-flex d-none">
-                                    <a href="{{ asset('wishlist.html') }}" class="indicator__button">
+                                    <a href="{{ route('WishList') }}" class="indicator__button">
                                         <span class="indicator__area">
                                             <svg width="20px" height="20px">
                                                 <use xlink:href="images/sprite.svg#heart-20"></use>
@@ -1337,7 +1337,7 @@
                                 <!-- .nav-links / end -->
                                 <div class="nav-panel__indicators">
                                     <div class="indicator">
-                                        <a href="wishlist.html" class="indicator__button">
+                                        <a href="{{ route('WishList') }}" class="indicator__button">
                                             <span class="indicator__area">
                                                 <svg width="20px" height="20px">
                                                     <use

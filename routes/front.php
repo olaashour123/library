@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\WishListController;
 use App\Http\Controllers\BookDetailController;
 use App\Http\Controllers\CustomLoginController;
 use App\Http\Controllers\ChangePasswordController;
@@ -36,9 +37,13 @@ Route::middleware('auth:customer')->group(function () {
     Route::put('update', [CartController::class,'update'])->name('update');
     Route::get('cart/{id}', [CartController::class, 'destroy'])->name('destroy');
 
-    Route::get('front/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::get('front/checkout',[CheckoutController::class, 'index'])->name('checkout');
     Route::post('checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
 
     Route::get('/book_detail/{id}', [BookDetailController::class, 'index'])->name('book_detail');
+
+
+      Route::get('WishList', [WishListController::class, 'index'])->name('WishList');
+      Route::post('WishList/store', [WishListController::class, 'store'])->name('WishList.store');
 });

@@ -9,6 +9,8 @@ class OrderAddress extends Model
 {
     use HasFactory;
 
+    protected $table= 'order_addresses';
+
 //     protected $column='address_id';
  //protected $primaryKey ='address_id';
  public $timestamps  = false ;
@@ -19,10 +21,14 @@ class OrderAddress extends Model
         'last_name',
         'email',
         'address',
-        'country',
         'phone',
         'postcode',
-        'city'
-
+        'city',
+        'country_id',
     ];
-}
+
+    public function country(){
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+ }

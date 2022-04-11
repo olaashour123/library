@@ -245,10 +245,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.logout.user') }}" class="nav-link">
+                    <a href="{{ route('admin.logout') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Logout
-                            <span class="right badge badge-danger">New</span>
+                            {{-- <span class="right badge badge-danger">New</span> --}}
                         </p>
                     </a>
                 </li>

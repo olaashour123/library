@@ -5,7 +5,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class  BookRequest extends FormRequest
+class SliderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,28 +30,13 @@ class  BookRequest extends FormRequest
 
         $rules = [
 
-        'name' => [
+        'title' => [
                     'required',
                     'max:255'
             ],
 
-        'quantity'=> [
-                    'required',
 
-            ],
 
-        'price'=>[
-                'required',
-                'numeric',
-
-            ],
-
-    //   'category_id' => ['required',
-    //         'int',
-    //         'exists:categories',
-    //         'id',
-
-    //     ],
         'image' => [
                  'required',
                  'image',
@@ -63,38 +48,15 @@ class  BookRequest extends FormRequest
                         'nullable',
                         'max:255'
                ],
+        'status'=>[
+                    'nullable',
 
-        // 'publishers' => [
-        //         'required',
-        //         // 'array'
-        //     ],
+               ],
 
-        // 'publishers.*' => [
-        //         'numeric'
-        //     ],
+        'url'=>[
+                    'nullable',
 
-            'publisher_id' => [
-               'required',
-                'numeric',
-            ],
-
-            'categories' => [
-                'required',
-                'array'
-            ],
-
-           'categories.*' => [
-                'numeric'
-            ],
-
-            'authors' => [
-                'required',
-                'array'
-            ],
-
-           'authors.*' => [
-                'numeric'
-            ],
+               ],
 
 
 

@@ -11,45 +11,22 @@
                     <div class="col-12 col-lg-9 offset-lg-3">
                         <div class="block-slideshow__body">
                             <div class="owl-carousel">
-                                <a class="block-slideshow__slide" href="#">
-                                    <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop"
-                                        style="background-image: url('images/slides/slide-1.jpg')"></div>
-                                    <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile"
-                                        style="background-image: url('images/slides/slide-1-mobile.jpg')"></div>
-                                    <div class="block-slideshow__slide-content">
-                                        <div class="block-slideshow__slide-title">Big choice of<br>Plumbing products</div>
-                                        <div class="block-slideshow__slide-text">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.</div>
-                                        <div class="block-slideshow__slide-button"><span class="btn btn-primary btn-lg">Shop
-                                                Now</span></div>
-                                    </div>
-                                </a>
-                                <a class="block-slideshow__slide" href="#">
-                                    <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop"
-                                        style="background-image: url('images/slides/slide-2.jpg')"></div>
-                                    <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile"
-                                        style="background-image: url('images/slides/slide-2-mobile.jpg')"></div>
-                                    <div class="block-slideshow__slide-content">
-                                        <div class="block-slideshow__slide-title">Screwdrivers<br>Professional Tools</div>
-                                        <div class="block-slideshow__slide-text">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.</div>
-                                        <div class="block-slideshow__slide-button"><span class="btn btn-primary btn-lg">Shop
-                                                Now</span></div>
-                                    </div>
-                                </a>
-                                <a class="block-slideshow__slide" href="#">
-                                    <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop"
-                                        style="background-image: url('images/slides/slide-3.jpg')"></div>
-                                    <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile"
-                                        style="background-image: url('images/slides/slide-3-mobile.jpg')"></div>
-                                    <div class="block-slideshow__slide-content">
-                                        <div class="block-slideshow__slide-title">One more<br>Unique header</div>
-                                        <div class="block-slideshow__slide-text">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.</div>
-                                        <div class="block-slideshow__slide-button"><span class="btn btn-primary btn-lg">Shop
-                                                Now</span></div>
-                                    </div>
-                                </a>
+                                @foreach ($sliders as $slider)
+                                    <a class="block-slideshow__slide" href="{{ $slider->url }}">
+                                        <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop"
+                                            style="background-image: url('{{ url(Storage::url($slider->image)) }}')">
+                                        </div>
+                                        {{-- <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile"
+                                        style="background-image: url('images/slides/slide-1-mobile.jpg')"></div> --}}
+                                        <div class="block-slideshow__slide-content">
+                                            <div class="block-slideshow__slide-title">{{ $slider->title }}</div>
+                                            <div class="block-slideshow__slide-text">{{ $slider->description }}</div>
+                                            <div class="block-slideshow__slide-button"><span
+                                                    class="btn btn-primary btn-lg">Shop
+                                                    Now</span></div>
+                                        </div>
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -287,9 +264,35 @@
                                                     {{-- <input type="text" value="{{ $book->quantity }}" hidden> --}}
                                                     <button class="btn btn-primary product-card__addtocart" type="submit"
                                                         class="btn btn-link">Here</button>
-                                                    {{-- <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button> --}}
-
                                                 </form>
+                                                {{-- <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button> --}}
+                                                <form action="{{ route('WishList.store') }}" method="post">
+                                                    @csrf
+                                                  
+                                                    <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                                    <button
+                                                        class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
+                                                        type="submit">
+                                                        <svg width="16px" height="16px">
+                                                            <use
+                                                                xlink:href="{{ asset('front/images/sprite.svg#wishlist-16') }}">
+                                                            </use>
+                                                        </svg>
+                                                        <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
+                                                    </button>
+                                                </form>
+                                                <button
+                                                    class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                    type="button">
+                                                    <svg width="16px" height="16px">
+                                                        <use
+                                                            xlink:href="{{ asset('front/images/sprite.svg#compare-16') }}">
+                                                        </use>
+                                                    </svg>
+                                                    <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
+                                                </button>
+
+
 
 
                                             </div>
@@ -3747,7 +3750,9 @@
                                                         class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
                                                         type="button">
                                                         <svg width="16px" height="16px">
-                                                            <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                                            <use
+                                                                xlink:href="{{ asset('front/images/sprite.svg#wishlist-16') }}">
+                                                            </use>
                                                         </svg>
                                                         <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                                     </button>
@@ -6319,7 +6324,9 @@
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
                                                     type="button">
                                                     <svg width="16px" height="16px">
-                                                        <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                                        <use
+                                                            xlink:href="{{ asset('front/images/sprite.svg#wishlist-16') }}">
+                                                        </use>
                                                     </svg>
                                                     <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                                 </button>
@@ -6475,7 +6482,9 @@
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
                                                     type="button">
                                                     <svg width="16px" height="16px">
-                                                        <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                                        <use
+                                                            xlink:href="{{ asset('front/images/sprite.svg#wishlist-16') }}">
+                                                        </use>
                                                     </svg>
                                                     <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                                 </button>
@@ -6627,7 +6636,9 @@
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
                                                     type="button">
                                                     <svg width="16px" height="16px">
-                                                        <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                                        <use
+                                                            xlink:href="{{ asset('front/images/sprite.svg#wishlist-16') }}">
+                                                        </use>
                                                     </svg>
                                                     <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                                 </button>
@@ -6635,7 +6646,9 @@
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
                                                     type="button">
                                                     <svg width="16px" height="16px">
-                                                        <use xlink:href="images/sprite.svg#compare-16"></use>
+                                                        <use
+                                                            xlink:href="{{ asset('front/images/sprite.svg#compare-16') }}">
+                                                        </use>
                                                     </svg>
                                                     <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
                                                 </button>
@@ -6655,7 +6668,8 @@
                                     <div class="product-card product-card--layout--horizontal">
                                         <button class="product-card__quickview" type="button">
                                             <svg width="16px" height="16px">
-                                                <use xlink:href="images/sprite.svg#quickview-16"></use>
+                                                <use xlink:href="{{ asset('front/images/sprite.svg#quickview-16') }}">
+                                                </use>
                                             </svg>
                                             <span class="fake-svg-icon"></span>
                                         </button>
@@ -7244,7 +7258,9 @@
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
                                                     type="button">
                                                     <svg width="16px" height="16px">
-                                                        <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                                        <use
+                                                            xlink:href="{{ asset('front/images/sprite.svg#wishlist-16') }}}">
+                                                        </use>
                                                     </svg>
                                                     <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                                 </button>
@@ -7565,4 +7581,32 @@
             </div>
             <!-- .block-product-columns / end -->
         </div>
+
+
+
+
+    @section('scripts')
+        {{-- <script>
+
+        $(document).on('click','.WishList').function(e){
+
+            e.preventDefult();
+
+           ///@guest
+
+        //    $(.not-loggedin-modal).css('display','block');
+        //    @endguest
+            $.ajax {{
+
+                type: 'post',
+                url: '{{Route('WishList') }}',
+                data: {'bookId'  $this.attar('data.book_id')},
+
+            },
+            success function('data')
+
+        };
+        }
+     </script> --}}
     @endsection
+@endsection

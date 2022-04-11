@@ -9,10 +9,12 @@ use App\Models\OrderAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Intl\Countries;
 use App\Repositories\front\CartRepository;
 use App\Repositories\front\BooksRepository;
 use App\Repositories\front\OrderRepository;
 use App\Http\Requests\Admin\CheckoutRequest;
+use App\Models\Country;
 use App\Repositories\front\CustomerRepository;
 use App\Repositories\front\CategoriesRepository;
 use App\Repositories\front\OrderAddressRepository;
@@ -28,13 +30,15 @@ class CheckoutController extends Controller
       public function index(BooksRepository $BookRepo, CategoriesRepository $CategoryRepo , CartRepository  $cartRepo)
          {
 
-      $categories=$CategoryRepo->getCategories(20);
-      $books=$BookRepo->getBooks(20);
+       $categories=$CategoryRepo->getCategories(20);
+       $books=$BookRepo->getBooks(20);
        $customerId=Auth::guard('customer')->id();
        $cart = $cartRepo->getCartByCustomerId($customerId);
-      //$countries = Countries::getNames('ar');
+    // // $countries=OrderAddress::
+      $countries = Country::all();
 
-        return response()->view('front.checkout', ['books'=> $books,'categories'=>$categories,'cart'=>$cart,'customerId'=> $customerId]);
+        return response()->view('front.checkout', ['books'=> $books,'categories'=>$categories,'cart'=>$cart,'customerId'=> $customerId 
+        ,'countries'=>$countries]);
     }
 
 
@@ -86,7 +90,8 @@ class CheckoutController extends Controller
     //     }
     //     return redirect()->route('home');
     // }
-    public function store(CheckoutRequest $request ,  CustomerRepository $customerRepo, OrderRepository $orderRepo , OrderAddressRepository $addressRepo, CartRepository  $cartRepo)
+    public function store(CheckoutRequest $request ,  CustomerRepository $customerRepo, OrderRepository $orderRepo 
+    , OrderAddressRepository $addressRepo, CartRepository  $cartRepo)
     {
        $data = $request->validated();
        $customerId = Auth::guard('customer')->id();
@@ -131,7 +136,7 @@ class CheckoutController extends Controller
 
 
           }else{
-        return Redirect()->back->withErrors(['message'=>'there is not item ']);
+        return Redirect()->back()->withErrors(['message'=>'there is not item ']);
 
 
   }

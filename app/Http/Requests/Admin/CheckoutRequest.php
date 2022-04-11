@@ -45,10 +45,11 @@ class CheckoutRequest extends FormRequest
                  'required',
              ],
 
+           'country_id' => [
+              'required',
+                'numeric',
+            ],
 
-        //    'country' => [
-        //        'required'
-        //        ]
 
 
         ];

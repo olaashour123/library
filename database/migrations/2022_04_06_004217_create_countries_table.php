@@ -17,6 +17,7 @@ class CreateCountriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
+           // $table->timestamps();
         });
     }
 
@@ -30,3 +31,5 @@ class CreateCountriesTable extends Migration
         Schema::dropIfExists('countries');
     }
 }
+
+

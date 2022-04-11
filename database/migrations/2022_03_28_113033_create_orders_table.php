@@ -17,8 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
            // $table->string('number')->unique();
            $table->foreignId('customer_id')->constrained('customers');
-            //    $table->foreign('address_id')->references('id')->on('order_addresses')->onDelete('cascade');
-           $table->foreignId('address_id')->constrained('order_addresses');
+            //$table->foreign('address_id')->references('id')->on('order_addresses')->onDelete('cascade');
+            $table->foreignId('address_id')->constrained('order_addresses');
             $table->unsignedFloat('discount')->default(0);
             $table->enum('status', ['pending', 'processing', 'cancelled', 'refunded']);
             $table->enum('payment_status', ['paid','not_paid']);
