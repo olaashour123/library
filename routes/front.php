@@ -12,9 +12,12 @@ use App\Http\Controllers\CustomLoginController;
 use App\Http\Controllers\ChangePasswordController;
 
 Route::name('front.')->prefix('front')->group(function () {
-     Route::get('custom/index', [CustomLoginController::class, 'index'])->name('custom.index');
-     Route::post('custom/update', [CustomLoginController::class, 'update'])->name('custom.update');
-     Route::get('/logout', [CustomLoginController::class, 'logout'])->name('logout');
+
+    Route::get('doRegister', [CustomLoginController::class, 'doRegister'])->name('doRegister');
+    Route::post('register', [CustomLoginController::class, 'register'])->name('register');
+    Route::get('custom/index', [CustomLoginController::class, 'index'])->name('custom.index');
+    Route::post('custom/update', [CustomLoginController::class, 'update'])->name('custom.update');
+    Route::get('/logout', [CustomLoginController::class, 'logout'])->name('logout');
  });
 
 

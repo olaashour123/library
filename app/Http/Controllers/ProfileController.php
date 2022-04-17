@@ -20,7 +20,8 @@ class ProfileController extends Controller
       $customers=$customerRepo->getCustomers(20);
 
     //dd($orders);
-        return response()->view('front.profile', ['categories'=>$categories,'orders'=>$orders,'customers'=> $customers,'countries'=>$countries ]);
+        return response()->view('front.profile', ['categories'=>$categories,'orders'=>$orders,'customers'=> $customers,
+        'countries'=>$countries ]);
     }
 
 }
