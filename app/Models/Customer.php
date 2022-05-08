@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Customer extends Authenticatable
@@ -44,16 +45,21 @@ class Customer extends Authenticatable
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
-    public function wishlist()
-    {
-        return $this->belongsToMany(Book::class,'wish_lists')->withTimestamps();
+    // public function wishlist()
+    // {
+    //     return $this->belongsToMany(Book::class,'wish_lists')->withTimestamps();
+    // }
+
+
+
+
+    public function wishlist(){
+        return $this->belongsToMany(Book::class, 'wish_lists')->withTimestamps();
     }
 
 
-    
-    public function wishlistHas($book_id)
-    {
-        return self::wishlist()->where('book_id',$book_id)->exists();
+    public function getWishlistIfExist($bookId){
+        return self::wishlist()->where('book_id', $bookId)->exists();
     }
 
 

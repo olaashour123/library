@@ -17,10 +17,9 @@ class ProfileController extends Controller
       $categories=$categoryRepo->getCategories(20);
       $countries = Country::all();
       $orders=$orderRepo->getOrders(20);
-      $customers=$customerRepo->getCustomers(20);
+      $customer=auth('customer')->user();
 
-    //dd($orders);
-        return response()->view('front.profile', ['categories'=>$categories,'orders'=>$orders,'customers'=> $customers,
+        return response()->view('front.profile', ['categories'=>$categories,'orders'=>$orders,'customer'=> $customer,
         'countries'=>$countries ]);
     }
 

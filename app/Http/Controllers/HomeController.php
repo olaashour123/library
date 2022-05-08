@@ -13,13 +13,14 @@ class HomeController extends Controller
 
 
 
-      public function index(BooksRepository  $bookRepo, CategoriesRepository $categoryRepo ,SlidersRepository  $sliderRepo )
+      public function index(BooksRepository  $bookRepo, CategoriesRepository $categoryRepo ,SlidersRepository  $sliderRepo , $category_id = null)
     {
 
-      $categories=$categoryRepo->getCategories(20);
-       $books=$bookRepo->getBooks(20);
-      $sliders=$sliderRepo->getSliders(20);
-        return response()->view('front.home', ['books' => $books,'categories'=>$categories ,'sliders'=>$sliders]);
+       $categories=$categoryRepo->getCategories(20);
+       $books=$bookRepo->getBooks($category_id,20);
+       $sliders=$sliderRepo->getSliders(20);
+
+      return response()->view('front.home', ['books' => $books,'categories'=>$categories ,'sliders'=>$sliders]);
     }
 
 }

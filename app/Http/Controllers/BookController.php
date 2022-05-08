@@ -1,18 +1,95 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
 use App\Repositories\front\BooksRepository;
 use App\Repositories\front\CategoriesRepository;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-
-      public function index(BooksRepository $bookRepo, CategoriesRepository $categoryRepo)
-         {
-
-          $categories=$categoryRepo->getCategories(20);
-          $books=$bookRepo->getBooks(20);
-        return response()->view('front.books', ['books' => $books ,'categories'=>$categories]);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(BooksRepository $bookRepo,
+                            CategoriesRepository $categoryRepo,
+                            $category_id = null)
+    {
+        $categories = $categoryRepo->getCategories(20);
+        $books = $bookRepo->getBooks($category_id,20);
+        // }
+        return response()->view('front.books', [
+            'categories' => $categories,
+            'books' => $books,
+        ]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

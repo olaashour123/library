@@ -16,7 +16,7 @@ class CreateWishListsTable extends Migration
         Schema::create('wish_lists', function (Blueprint $table) {
                $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
                $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
-               $table->primary(['customer_id', 'book_id']);
+               $table->primary(['customer_id','book_id']);
                $table->timestamps();
         });
     }

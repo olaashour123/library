@@ -469,7 +469,7 @@
                                     </button>
                                 </div>
                                 <div class="indicator indicator--mobile d-sm-flex d-none">
-                                    <a href="{{ route('WishList') }}" class="indicator__button">
+                                    <a href="{{ route('wishlist') }}" class="indicator__button">
                                         <span class="indicator__area">
                                             <svg width="20px" height="20px">
                                                 <use xlink:href="images/sprite.svg#heart-20"></use>
@@ -658,7 +658,7 @@
                                                 @foreach ($categories as $category)
                                                     <ul class="departments__links">
                                                         <li class="departments__item">
-                                                            <a href="#">
+                                                            <a href="{{ route('front.books', $category->id) }}">
                                                                 {{ $category->name }}
                                                                 <svg class="departments__link-arrow" width="6px"
                                                                     height="9px">
@@ -1337,7 +1337,7 @@
                                 <!-- .nav-links / end -->
                                 <div class="nav-panel__indicators">
                                     <div class="indicator">
-                                        <a href="{{ route('WishList') }}" class="indicator__button">
+                                        <a href="{{ route('wishlist') }}" class="indicator__button">
                                             <span class="indicator__area">
                                                 <svg width="20px" height="20px">
                                                     <use

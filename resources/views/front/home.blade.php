@@ -265,10 +265,21 @@
                                                     <button class="btn btn-primary product-card__addtocart" type="submit"
                                                         class="btn btn-link">Here</button>
                                                 </form>
+
                                                 {{-- <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button> --}}
-                                                <form action="{{ route('WishList.store') }}" method="post">
+                                                 <a href="javascript:void(0)"
+                                                    class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist {{ $book->in_wishlist ? 'active' : '' }} "
+                                                    data-book-id="{{$book->id}}">
+                                                    <svg width="16px" height="16px">
+                                                        <use
+                                                            xlink:href="{{ asset('front/images/sprite.svg#wishlist-16') }}">
+                                                        </use>
+                                                    </svg>
+                                                    <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
+                                                </a>
+                                                {{-- <form action="{{ route('WishList.store') }}" method="post">
                                                     @csrf
-                                                  
+
                                                     <input type="hidden" name="book_id" value="{{ $book->id }}">
                                                     <button
                                                         class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
@@ -280,7 +291,8 @@
                                                         </svg>
                                                         <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                                     </button>
-                                                </form>
+                                                </form> --}}
+
                                                 <button
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
                                                     type="button">
@@ -291,9 +303,6 @@
                                                     </svg>
                                                     <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
                                                 </button>
-
-
-
 
                                             </div>
                                         </div>
@@ -7586,7 +7595,39 @@
 
 
     @section('scripts')
-        {{-- <script>
+        <script>
+            $(document).on('click', '.product-card__wishlist', function(e) {
+                e.preventDefault();
+
+                let click = $(this);
+                $.ajax({
+                    type: 'post',
+                    url: "{{ route('wishlist.store') }}",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'bookId': $(this).attr('data-book-id'),
+                    },
+                    success: function(data) {
+                        if (data.wishlist) {
+                            $(click).addClass('active');
+                        } else {
+                            $(click).removeClass('active');
+                        }
+                    }
+                });
+            });
+        </script>
+
+    @endsection
+@endsection
+
+
+
+
+
+
+
+ {{-- <script>
 
         $(document).on('click','.WishList').function(e){
 
@@ -7608,5 +7649,3 @@
         };
         }
      </script> --}}
-    @endsection
-@endsection

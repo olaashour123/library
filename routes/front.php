@@ -6,7 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\WishListController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\BookDetailController;
 use App\Http\Controllers\CustomLoginController;
 use App\Http\Controllers\ChangePasswordController;
@@ -33,7 +33,7 @@ Route::middleware('auth:customer')->group(function () {
     Route::put('change_password', [ChangePasswordController::class,'update'])->name('change.password');
     // Route::view('/cart','front.cart')->name('front.cart');
     //Route::view('/parent','front.parent')->name('front.parent');
-    Route::get('/books', [BookController::class, 'index'])->name('front.books');
+    Route::get('/books/{category_id?}', [BookController::class, 'index'])->name('front.books');
     Route::get('/home', [HomeController::class, 'index'])->name('front.home');
     Route::get('front/cart', [CartController::class, 'index'])->name('front.cart');
     Route::post('cart/store', [CartController::class, 'store'])->name('cart.store');
@@ -47,6 +47,6 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('/book_detail/{id}', [BookDetailController::class, 'index'])->name('book_detail');
 
 
-      Route::get('WishList', [WishListController::class, 'index'])->name('WishList');
-      Route::post('WishList/store', [WishListController::class, 'store'])->name('WishList.store');
+      Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
+      Route::post('wishlist/store', [WishlistController::class, 'store'])->name('wishlist.store');
 });

@@ -53,7 +53,7 @@ class CategoryController extends Controller
     {
         // $categories = $request->validated();
 
-        $image = $request->file('image');
+           $image = $request->file('image');
            $imageName=Carbon::now()->format('Y_m_d_h_i')  .  '.' . $image->getClientOriginalExtension();
            $request->file('image')->storeAs('public/categories',$imageName,['disk ' =>'public']);
         //    $request->image = 'categories/' . $imageName;

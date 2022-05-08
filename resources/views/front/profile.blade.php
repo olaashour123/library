@@ -199,80 +199,79 @@
                                 <div class="tab-pane fade" id="account-info" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Account Details</h3>
-                                        @foreach ($customers as $customer)
-                                            <div class="account-details-form">
-                                                <form action="#">
-                                                    <div class="row">
-                                                        {{-- <div class="col-lg-6">
+                                        {{-- @foreach ($customers as $customer) --}}
+                                        <div class="account-details-form">
+                                            <form action="#">
+                                                <div class="row">
+                                                    {{-- <div class="col-lg-6">
                                                         <div class="single-input-item">
                                                             <label for="first-name" class="required">First
                                                                 Name</label>
                                                             <input type="text" id="first-name" placeholder="First Name" />
                                                         </div>
                                                     </div> --}}
-                                                        <div class="form-group col-md-6"><label
-                                                                for="checkout-first-name">First
-                                                                Name</label>
-                                                            <input type="text" class="form-control"
-                                                                id="checkout-first-name" placeholder="First Name"
-                                                                name="first_name" value="{{ $customer->first_name }}">
-                                                        </div>
-
-                                                        <div class="form-group col-md-6"><label
-                                                                for="checkout-last-name">Last Name</label>
-                                                            <input type="text" class="form-control" name="last_name"
-                                                                value="{{ $customer->last_name }}"
-                                                                id=" checkout-last-name" placeholder="Last Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="country">Country</label>
-                                                        <select class="custom-select" id="country" name="country_id">
-                                                            <option value="">select</option>
-                                                            @foreach ($countries as $country)
-                                                                <option value="{{ $country->id }}"
-                                                                    {{ $customer->country_id == $country->id ? 'selected' : '' }}>
-                                                                    {{ $country->name }}</option>
-                                                            @endforeach
-
-                                                        </select>
+                                                    <div class="form-group col-md-6"><label for="checkout-first-name">First
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="checkout-first-name"
+                                                            placeholder="First Name" name="first_name"
+                                                            value="{{ $customer->first_name }}">
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label for="checkout-street-address">Street Address</label>
-                                                        <input type="text" class="form-control"
-                                                            id="checkout-street-address" placeholder="Street Address"
-                                                            name="address" value="{{ $customer->address }}">
+                                                    <div class="form-group col-md-6"><label for="checkout-last-name">Last
+                                                            Name</label>
+                                                        <input type="text" class="form-control" name="last_name"
+                                                            value="{{ $customer->last_name }}" id=" checkout-last-name"
+                                                            placeholder="Last Name">
                                                     </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="country">Country</label>
+                                                    <select class="custom-select" id="country" name="country_id">
+                                                        <option value="">select</option>
+                                                        @foreach ($countries as $country)
+                                                            <option value="{{ $country->id }}"
+                                                                {{ $customer->country_id == $country->id ? 'selected' : '' }}>
+                                                                {{ $country->name }}</option>
+                                                        @endforeach
 
-                                                    <div class="form-group"><label for="checkout-city">Town /
-                                                            City</label> <input type="text" class="form-control"
-                                                            id="checkout-city" name="city"
-                                                            value="{{ $customer->address }}" placeholder="City"></div>
+                                                    </select>
+                                                </div>
 
-                                                    <div class="form-group"><label for="checkout-postcode">Postcode /
-                                                            ZIP</label> <input type="text" class="form-control"
-                                                            id="checkout-postcode" placeholder="Postcode" name="postcode"
-                                                            value="{{ $customer->postcod }}"></div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6"><label for="checkout-email">Email
-                                                                address</label>
-                                                            <input type="email" class="form-control" id="checkout-email"
-                                                                placeholder="Email address" name="email"
-                                                                value="{{ $customer->email }}">
-                                                        </div>
-                                                        <div class="form-group col-md-6"><label
-                                                                for="checkout-phone">Phone</label> <input type="text"
-                                                                class="form-control" id="checkout-phone" name="phone"
-                                                                value="{{ $customer->phone }}" placeholder="Phone">
-                                                        </div>
+                                                <div class="form-group">
+                                                    <label for="checkout-street-address">Street Address</label>
+                                                    <input type="text" class="form-control" id="checkout-street-address"
+                                                        placeholder="Street Address" name="address"
+                                                        value="{{ $customer->address }}">
+                                                </div>
+
+                                                <div class="form-group"><label for="checkout-city">Town /
+                                                        City</label> <input type="text" class="form-control"
+                                                        id="checkout-city" name="city" value="{{ $customer->address }}"
+                                                        placeholder="City"></div>
+
+                                                <div class="form-group"><label for="checkout-postcode">Postcode /
+                                                        ZIP</label> <input type="text" class="form-control"
+                                                        id="checkout-postcode" placeholder="Postcode" name="postcode"
+                                                        value="{{ $customer->postcod }}"></div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6"><label for="checkout-email">Email
+                                                            address</label>
+                                                        <input type="email" class="form-control" id="checkout-email"
+                                                            placeholder="Email address" name="email"
+                                                            value="{{ $customer->email }}">
                                                     </div>
+                                                    <div class="form-group col-md-6"><label
+                                                            for="checkout-phone">Phone</label> <input type="text"
+                                                            class="form-control" id="checkout-phone" name="phone"
+                                                            value="{{ $customer->phone }}" placeholder="Phone">
+                                                    </div>
+                                                </div>
 
-                                                    {{-- <div class="single-input-item">
+                                                {{-- <div class="single-input-item">
                                                         <label for="email" class="required">Email Addres</label>
                                                         <input type="email" id="email" placeholder="Email Address" />
                                                     </div> --}}
-                                                    {{-- <fieldset>
+                                                {{-- <fieldset>
                                                         <legend>Password change</legend>
                                                         <div class="single-input-item">
                                                             <label for="current-pwd" class="required">Current
@@ -302,9 +301,9 @@
                                                     <div class="single-input-item">
                                                         <button class="check-btn sqr-btn ">Save Changes</button>
                                                     </div> --}}
-                                                </form>
-                                            </div>
-                                        @endforeach
+                                            </form>
+                                        </div>
+                                        {{-- @endforeach --}}
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->

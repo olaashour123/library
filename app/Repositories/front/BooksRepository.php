@@ -10,13 +10,16 @@ class BooksRepository
         return Book::query()->findOrFail($id);
     }
 
-    public function getBooks($perPage)
+  public function getBooks($category_id, $perPage){
 
-    {
-
-
-        return Book::query()->paginate($perPage);
-
+        $category_id = $category_id ?? null;
+        return Book::query()
+        ->when($category_id,function($query) use($category_id){
+            $query->whereHas('categories',function($query) use($category_id){
+                $query->where('category_id',$category_id);
+            });
+        })
+        ->paginate($perPage);
     }
 
     public function destroy($id)
