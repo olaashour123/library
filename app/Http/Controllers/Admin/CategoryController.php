@@ -26,10 +26,37 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CategoriesRepository  $categoryRepo)
+    public function index( Request $request ,CategoriesRepository  $categoryRepo)
     {
-       $categories=$categoryRepo->getCategories(20);
-        return response()->view('admin.categories.index', ['categories' => $categories]);
+    //    $categories=$categoryRepo->getCategories(20);
+    //     return response()->view('admin.categories.index', ['categories' => $categories]);
+
+    if (!$request->expectsJson()) {
+        return view('admin.categories.index');
+    }
+
+    $dataTable = $categoryRepo->getDataTableCategories($request->all());
+
+ 
+    $dataTable->addColumn('actions', function ($row) {
+       $info = $row;
+        return view('admin.categories.parts.actions', compact('info'))->render();
+    });
+
+    $dataTable->editColumn('created_at', function ($row) {
+        return '<bdi>' . $row->created_at . '</bdi>';
+    });
+
+    $dataTable->editColumn('image', function ($row) {
+        $category=$row;
+        return view('admin.categories.parts.image', compact('row'))->render();
+    });
+
+    
+    $dataTable->addIndexColumn();
+    $dataTable->escapeColumns(['*']);
+    return $dataTable->make(true);
+
 
     }
 
@@ -69,23 +96,39 @@ class CategoryController extends Controller
         //     $categories['image'] = 'categories/' . $imageName;
         // }
 
+        
+      
+        $isAdded = Category::create($categories);
 
-        $add = Category::create($categories);
-        if (!$add) {
-            $request->session()->flash('categories', [
+        if (!$isAdded) {
+            return $this->sendError([
                 'title' => 'Error',
-                'code' => 400,
-                'message' => 'Error While Adding'
+                'message' => 'Error While Adding',
             ]);
-            return redirect()->route('admin.categories.index');
         }
+        return $this->sendResponse([
+            'title' => 'Success',
+            'message' => 'Added Successfully',
+        ], route('admin.categories.index'));
+        
 
-        $request->session()->flash('categories', [
-            'title' => 'success',
-            'code' => 200,
-            'message' => 'Added Successfully'
-        ]);
-        return redirect()->route('admin.categories.index');
+
+        // $add = Category::create($categories);
+        // if (!$add) {
+        //     $request->session()->flash('categories', [
+        //         'title' => 'Error',
+        //         'code' => 400,
+        //         'message' => 'Error While Adding'
+        //     ]);
+        //     return redirect()->route('admin.categories.index');
+        // }
+
+        // $request->session()->flash('categories', [
+        //     'title' => 'success',
+        //     'code' => 200,
+        //     'message' => 'Added Successfully'
+        // ]);
+        // return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -97,7 +140,6 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
-
     }
 
     /**
@@ -160,28 +202,43 @@ class CategoryController extends Controller
                             CategoriesRepository  $categoryRepo,
                             $id)
     {
-        $categoryRepo->getCategory($id);
-        $delete = $categoryRepo->destroy($id);
-        return redirect()->route('admin.categories.index');
-        if (!$delete) {
-            $request->session()->flash('data', [
-                'title' => 'Error',
-                'code' => 400,
-                'message' => 'Error While Deleting'
-            ]);
-        }
-        return redirect()->route('admin.categories.index');
-
-        $request->session()->flash('data', [
-            'title' => 'success',
-            'code' => 200,
-            'message' => 'Deleted Successfully'
-        ]);
-
-         return redirect()->route('admin.categories.index');
-    }
 
 
+             
+             $isDeleted =$categoryRepo->destroy($id);
+             if (!$isDeleted) {
+                 return $this->sendError([
+                     'title' => 'Error',
+                     'message' => 'Error While Deleting',
+                 ]);
+             }
+             return $this->sendResponse([
+                 'title' => 'Success',
+                 'message' => 'Deleted Successfully',
+             ]);
+    //     $categoryRepo->getCategory($id);
+    //     $delete = $categoryRepo->destroy($id);
+    //     return redirect()->route('admin.categories.index');
+    //     if (!$delete) {
+    //         $request->session()->flash('data', [
+    //             'title' => 'Error',
+    //             'code' => 400,
+    //             'message' => 'Error While Deleting'
+    //         ]);
+    //     }
+    //     return redirect()->route('admin.categories.index');
+
+    //     $request->session()->flash('data', [
+    //         'title' => 'success',
+    //         'code' => 200,
+    //         'message' => 'Deleted Successfully'
+    //     ]);
+
+    //      return redirect()->route('admin.categories.index');
+    // }
 
 
+
+
+}
 }

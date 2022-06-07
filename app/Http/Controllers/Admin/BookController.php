@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\BookRequest;
 use App\Repositories\Admin\BooksRepository;
@@ -21,12 +21,38 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(BooksRepository  $bookRepo)
+    public function index(Request $request,BooksRepository  $bookRepo)
     {
 
+        if (!$request->expectsJson()) {
+            return view('admin.books.index');
+        }
 
-       $books=$bookRepo->getBooks(20);
-        return response()->view('admin.books.index', ['books' => $books ]);
+        $dataTable = $bookRepo->getDataTableBooks($request->all());
+
+     
+        $dataTable->addColumn('actions', function ($row) {
+           $info = $row;
+            return view('admin.books.parts.actions', compact('info'))->render();
+        });
+
+        $dataTable->editColumn('created_at', function ($row) {
+            return '<bdi>' . $row->created_at . '</bdi>';
+        });
+
+        $dataTable->editColumn('image', function ($row) {
+            return view('admin.books.parts.image', compact('row'))->render();
+        });
+
+        
+        $dataTable->addIndexColumn();
+        $dataTable->escapeColumns(['*']);
+        return $dataTable->make(true);
+
+
+
+    //    $books=$bookRepo->getBooks(20);
+    //     return response()->view('admin.books.index', ['books' => $books ]);
     }
 
     /**
@@ -52,46 +78,36 @@ class BookController extends Controller
      */
     public function store(BookRequest $request,BooksRepository  $bookRepo, PublishersRepository  $publisherRepo )
     {
-
+         
           $data = $request->validated();
 
 
            $image =$data['image'];
            $imageName=Carbon::now()->format('Y_m_d_h_i')  .  '.' . $image->getClientOriginalExtension();
-           $image->storeAs('/Books',$imageName,['disk' =>'public']);
+           $image->storeAs('public/Books',$imageName,['disk' =>'public']);
 
-           $data['image'] = 'Books/' . $imageName;
+           $data['image'] = 'public/Books/' . $imageName;
 
     //    $data['publisher_id'] = $data['publishers'];
+          
+           $add = $bookRepo->store($data); 
+           if (!$add) {
+            return $this->sendError([
+                'title' => 'Error',
+                'message' => 'Error While Adding',
+            ]);
+        }
         $publishers = $publisherRepo->getPublisher($data['publisher_id']) ;
 
-           $add = $bookRepo->store($data);
            $add->publisher()->associate($publishers);
            $add->categories()->sync($data['categories']);
            $add->authors()->sync($data['authors']);
-        // $add->publishers()->sync($data['publishers']);
-
-     //   $add = Book::create($data);
-     // $add = $authorRepo->store($data);
-
-
-
-
-        if (!$add) {
-            $request->session()->flash('data', [
-                'title' => 'Error',
-                'code' => 400,
-                'message' => 'Error While Adding'
-            ]);
-            return redirect()->route('admin.books.index');
-        }
-
-        $request->session()->flash('data', [
-            'title' => 'success',
-            'code' => 200,
-            'message' => 'Added Successfully'
-        ]);
-        return redirect()->route('admin.books.index');
+          
+            return $this->sendResponse([
+                'title' => 'Success',
+                'message' => 'Added Successfully',
+            ], route('admin.books.index'));
+     
     }
 
 
@@ -187,17 +203,31 @@ class BookController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-     public function destroy(Request $request,
-                          BooksRepository  $bookRepo ,
-                            $id)
+
+
+     public function destroy(Request $request,BooksRepository $bookRepo ,$id)
     {
-        $bookRepo->getBook($id);
-        $book = $bookRepo->destroy($id);
-
-        return redirect()->route('admin.books.index',['book'=>$book]);
 
 
+          // $bookRepo->getBook($id);
+        $isDeleted =$bookRepo->destroy($id);
+        if (!$isDeleted) {
+            return $this->sendResponse([
+                'title' => 'Error',
+                'message' => 'Error While Deleting',
+            ]);
+        }
+        return $this->sendResponse([
+            'title' => 'Success',
+            'message' => 'Deleted Successfully',
+        ]);
 
+        // $bookRepo->getBook($id);
+        // $book = $bookRepo->destroy($id);
+
+        // return redirect()->route('admin.books.index',['book'=>$book]);
+
+            ////////////////////////////////////////
     //     $categoryRepo->getCategory($id);
     //     $delete = $categoryRepo->destroy($id);
     //     return redirect()->route('admin.categories.index');
@@ -218,9 +248,5 @@ class BookController extends Controller
 
     //      return redirect()->route('admin.categories.index');
     // }
-
-
-
-
     }
 }

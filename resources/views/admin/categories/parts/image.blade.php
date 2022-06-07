@@ -1,0 +1,1 @@
+<img class="img-circle img-bordered-sm" width="65" height="65" src="{{ url(Storage::url($row->image)) }}" alt="">

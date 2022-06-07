@@ -13,9 +13,15 @@
         {{-- class="btn btn-success " --}}
     </div>
     <br>
+
+    <div class="container-fluid">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control  searchable" id="name" name="name" placeholder="Name">
+      </div>
     <div class="card-body">
-        @if ($categories->count() > 0)
-            <table class="table table-bordered">
+    
+            <table class="datatable table  table-head-fixed table-hover text-nowrap  text-center">
                 <thead>
                     <tr>
                         <th width="3%">#</th>
@@ -28,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
+                    {{-- @foreach ($categories as $category)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $category->name }}</td>
@@ -57,20 +63,95 @@
 
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
             <br>
 
     </div>
-@else
-    <br>
-    <div class="alert alert-warning"><b>نأسف</b>, لا يوجد بيانات لعرضها ...</div>
-    @endif
-    {{ $categories->links() }}
+
 
 
 @endsection
+
+@section('scripts')
+
+<script>
+    jQuery(document).ready(function () {
+            var table = $('.datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                bLengthChange: false,
+                pageLength: 20,
+                ajax: {
+                    url:"{{ route('admin.categories.index') }}",
+                    data: function (d) {
+                        d.name = $('#name').val()
+
+                    },
+                },
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false, searchable: false },
+                    {data: 'name', name: 'Category'},
+                    {data: 'description', name: 'description'},
+                    {data: 'image', name: 'image'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'actions', name: 'actions'}
+                ],
+            });
+            $('.searchable').on('input change', function () {
+                table.draw();
+            });
+
+//Delete Ajax request.
+
+            
+$(document).on('click','.deletebtn', function(e){
+  e.preventDefault();
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let a = $(this).attr("data_url");
+      $.ajax({
+        type: 'get',
+        url: a,
+
+        success: function (data) {
+          if (data.status = 200) {
+            if (data != null) {
+              toastr.success(data.message);
+              table.draw();
+            }
+          } else {
+              toastr.error(data.message)
+          }
+        },
+      });
+    }
+  })
+  
+});
+        });
+        
+    
+    
+    
+    </script>
+    
+
+@endsection
+
+
+
+
 
 
 {{-- <form class="row">

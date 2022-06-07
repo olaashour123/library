@@ -11,7 +11,7 @@
         </div>
 
 
-        <form action="{{ route('admin.categories.store') }}" method="post" enctype="multipart/form-data">
+        <form   id="ajax_form" action="{{ route('admin.categories.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="form-group">
@@ -37,7 +37,7 @@
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary submit_btn">Submit</button>
             </div>
         </form>
     </div>

@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
             "email"=>'ola@gmail.com',
             "password"=>'12345678',
             
-
-            
         ]);
     }
 }

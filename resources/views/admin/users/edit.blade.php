@@ -11,7 +11,7 @@
         </div>
 
 
-        <form action="{{ route('admin.users.update', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
+        <form  id="ajax_form" action="{{ route('admin.users.update', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
 
             @csrf
             @method('post')
@@ -43,7 +43,7 @@
 
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary submit_btn">Submit</button>
                 </div>
         </form>
     </div>

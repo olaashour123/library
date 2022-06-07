@@ -14,7 +14,7 @@ class CreateUserRequest extends FormRequest
             'username' => [
                 'required',
                 'max:255',
-                Rule::unique('users', 'username'),
+                // Rule::unique('users', 'username'),
             ],
             'name' => [
                 'required',
@@ -23,7 +23,7 @@ class CreateUserRequest extends FormRequest
             'email' => [
                 'required',
                 'max:64',
-                Rule::unique('users', 'email')
+                // Rule::unique('users', 'email')
             ],
             'password' => [
                 'required',
@@ -36,7 +36,7 @@ class CreateUserRequest extends FormRequest
             ],
             'status' => [
                 'required',
-                Rule::in(0,1)
+                // Rule::in(0,1)
             ]
         ];
     }

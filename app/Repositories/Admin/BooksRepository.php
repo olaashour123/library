@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Book;
+use DataTables;
 
 class BooksRepository
 {
@@ -13,8 +14,6 @@ class BooksRepository
     public function getBooks($perPage)
 
     {
-
-
         return Book::query()->paginate($perPage);
 
     }
@@ -33,5 +32,43 @@ class BooksRepository
     {
         return Book::query()->findOrFail($id)->update($data);
     }
+
+
+    
+    public function getDataTableBooks(array $data)
+    {
+        $query = Book::query();
+
+        $name = $data['name'] ?? null;
+       
+
+
+        $skip = $data['start'] ?? 0;
+        $take = $data['length'] ?? 25;
+
+        $query = $query->when($name, function ($query) use ($name) {
+           $query->where('name', 'LIKE', '%' . $name . '%');
+        }); 
+        $info = $query->skip($skip)->take($take);
+        $count = $this->countDataTableBooks($data);
+        return Datatables::of($info)->setTotalRecords($count);
+    }
+
+
+    public function countDataTableBooks(array $data)
+    {
+        $query = Book::query();
+
+        $name = $data['name'] ?? null;
+      
+        
+        $query = $query->when($name, function ($query) use ($name) {
+            $query->where('name', 'LIKE', '%' . $name . '%');
+        });
+      
+
+        return $query->count('id');
+    }
 }
+
 
